@@ -1,333 +1,313 @@
 {
-  "success": true,
-  "data": {
-    "updatedAt": "2026-02-05T19:58:28.685Z",
-    "createdAt": "2026-02-05T18:58:47.584Z",
-    "id": "xcv9j8hu2oqy7LoB",
-    "name": "WebSecScan Pro - Workflow Tools Edition",
-    "description": null,
-    "active": false,
-    "isArchived": false,
-    "nodes": [
-      {
-        "parameters": {
-          "promptType": "define",
-          "text": "={{ $json['Target URL'] }}",
-          "options": {
-            "systemMessage": "You are the WebSecScan Pro Orchestrator.\nYour goal is to coordinate a security scan using your specialized Sub-Agents.\nEach Sub-Agent is a powerful AI tool.\n\n1. **Reconnaissance**: Call `recon_agent` first.\n2. **Security Checks**: Call `transport_agent`, `identity_agent`, etc.\n3. **Correlation**: Call `correlation_agent`.\n\nPass the `target` URL and specific `task` instructions to each agent.\nFor the 'role' parameter, use the agent's name (e.g., 'Recon', 'Transport').\n\n**IMPORTANT**: \n- Execute the scan steps as usual.\n- When generating the final response/report, **You MUST write the entire report in THAI Language (ภาษาไทย)**.\n- **FORMAT**: Use Markdown format. Be detailed and comprehensive.\n- Use professional Thai cybersecurity terminology.\n- Maintain the original technical English terms where appropriate."
-          }
-        },
-        "id": "orchestrator-agent",
-        "name": "Orchestrator Agent",
-        "position": [
-          544,
-          304
-        ],
-        "type": "@n8n/n8n-nodes-langchain.agent",
-        "typeVersion": 1.7
-      },
-      {
-        "parameters": {
-          "model": "google/gemini-3-flash-preview",
-          "options": {}
-        },
-        "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
-        "typeVersion": 1,
-        "position": [
-          480,
-          512
-        ],
-        "id": "fd164258-0de6-4816-8601-04ca9feeffe5",
-        "name": "OpenRouter Chat Model",
-        "credentials": {
-          "openRouterApi": {
-            "id": "EDqwRIKAEHCDMQuY",
-            "name": "OpenRouter account"
-          }
+  "name": "WebSecScan Pro - Workflow Tools Edition",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['Target URL'] }}",
+        "options": {
+          "systemMessage": "You are the WebSecScan Pro Orchestrator.\nYour goal is to coordinate a security scan using your specialized Sub-Agents.\nEach Sub-Agent is a powerful AI tool.\n\n1. **Reconnaissance**: Call `recon_agent` first.\n2. **Security Checks**: Call `transport_agent`, `identity_agent`, etc.\n3. **Correlation**: Call `correlation_agent`.\n\nPass the `target` URL and specific `task` instructions to each agent.\nFor the 'role' parameter, use the agent's name (e.g., 'Recon', 'Transport').\n\n**IMPORTANT**: \n- Execute the scan steps as usual.\n- When generating the final response/report, **You MUST write the entire report in THAI Language (ภาษาไทย)**.\n- **FORMAT**: Use Markdown format. Be detailed and comprehensive.\n- Use professional Thai cybersecurity terminology.\n- Maintain the original technical English terms where appropriate."
         }
       },
-      {
-        "parameters": {
-          "path": "13aa3033-771c-4aa5-84b9-e3a3dc279f7b",
-          "formTitle": "WebSecScan Pro Input",
-          "formFields": {
-            "values": [
-              {
-                "fieldLabel": "Target URL",
-                "requiredField": true
-              }
-            ]
-          },
-          "options": {}
-        },
-        "id": "form-trigger",
-        "name": "Start Audit Form",
-        "type": "n8n-nodes-base.formTrigger",
-        "typeVersion": 1,
-        "position": [
-          256,
-          304
-        ],
-        "webhookId": "13aa3033-771c-4aa5-84b9-e3a3dc279f7b"
+      "id": "orchestrator-agent",
+      "name": "Orchestrator Agent",
+      "position": [
+        544,
+        304
+      ],
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-3-flash-preview",
+        "options": {}
       },
-      {
-        "parameters": {
-          "workflowId": {
-            "__rl": true,
-            "value": "hnStxD29gy2uauhe",
-            "mode": "list",
-            "cachedResultUrl": "/workflow/hnStxD29gy2uauhe",
-            "cachedResultName": "WebSec_SubAgent_Worker"
-          },
-          "workflowInputs": {
-            "mappingMode": "defineBelow",
-            "value": {},
-            "matchingColumns": [],
-            "schema": [],
-            "attemptToConvertTypes": false,
-            "convertFieldsToString": false
-          }
-        },
-        "id": "tool-recon",
-        "name": "Recon Agent",
-        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-        "typeVersion": 2.2,
-        "position": [
-          864,
-          208
-        ]
-      },
-      {
-        "parameters": {
-          "workflowId": {
-            "__rl": true,
-            "value": "hnStxD29gy2uauhe",
-            "mode": "list",
-            "cachedResultUrl": "/workflow/hnStxD29gy2uauhe",
-            "cachedResultName": "WebSec_SubAgent_Worker"
-          },
-          "workflowInputs": {
-            "mappingMode": "defineBelow",
-            "value": {},
-            "matchingColumns": [],
-            "schema": [],
-            "attemptToConvertTypes": false,
-            "convertFieldsToString": false
-          }
-        },
-        "id": "tool-transport",
-        "name": "Transport Agent",
-        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-        "typeVersion": 2.2,
-        "position": [
-          864,
-          352
-        ]
-      },
-      {
-        "parameters": {
-          "workflowId": {
-            "__rl": true,
-            "value": "hnStxD29gy2uauhe",
-            "mode": "list",
-            "cachedResultUrl": "/workflow/hnStxD29gy2uauhe",
-            "cachedResultName": "WebSec_SubAgent_Worker"
-          },
-          "workflowInputs": {
-            "mappingMode": "defineBelow",
-            "value": {},
-            "matchingColumns": [],
-            "schema": [],
-            "attemptToConvertTypes": false,
-            "convertFieldsToString": false
-          }
-        },
-        "id": "tool-identity",
-        "name": "Identity Agent",
-        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-        "typeVersion": 2.2,
-        "position": [
-          864,
-          512
-        ]
-      },
-      {
-        "parameters": {
-          "workflowId": {
-            "__rl": true,
-            "value": "hnStxD29gy2uauhe",
-            "mode": "list",
-            "cachedResultUrl": "/workflow/hnStxD29gy2uauhe",
-            "cachedResultName": "WebSec_SubAgent_Worker"
-          },
-          "workflowInputs": {
-            "mappingMode": "defineBelow",
-            "value": {},
-            "matchingColumns": [],
-            "schema": [],
-            "attemptToConvertTypes": false,
-            "convertFieldsToString": false
-          }
-        },
-        "id": "tool-correlation",
-        "name": "Correlation Agent",
-        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-        "typeVersion": 2.2,
-        "position": [
-          864,
-          656
-        ]
-      },
-      {
-        "parameters": {
-          "jsCode": "const report = $input.item.json.output;\nconst binaryData = Buffer.from(report).toString('base64');\nreturn {\n  json: { message: \"Report generated successfully.\" },\n  binary: {\n    data: {\n      data: binaryData,\n      mimeType: 'text/markdown',\n      fileName: 'WebSecScan_Report.md'\n    }\n  }\n};"
-        },
-        "id": "create-file",
-        "name": "Create Report File",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 1,
-        "position": [
-          1072,
-          512
-        ]
-      },
-      {
-        "parameters": {
-          "authentication": "webhook",
-          "content": "=🚫 **รายงานผลการตรวจความปลอดภัย WebSecScan Pro** 🚫\n(ดูรายละเอียดในไฟล์แนบ)",
-          "options": {},
-          "files": {
-            "values": [
-              {}
-            ]
-          }
-        },
-        "id": "discord-report",
-        "name": "Send Report to Discord",
-        "type": "n8n-nodes-base.discord",
-        "typeVersion": 2,
-        "position": [
-          1360,
-          400
-        ],
-        "webhookId": "74ba7a8b-6b96-40a6-bb84-5561caeaa1e3",
-        "credentials": {
-          "discordWebhookApi": {
-            "id": "THnybLg0kTchFk3v",
-            "name": "Discord Webhook account"
-          }
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        480,
+        512
+      ],
+      "id": "fd164258-0de6-4816-8601-04ca9feeffe5",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "EDqwRIKAEHCDMQuY",
+          "name": "OpenRouter account"
         }
       }
-    ],
-    "connections": {
-      "OpenRouter Chat Model": {
-        "ai_languageModel": [
-          [
+    },
+    {
+      "parameters": {
+        "path": "13aa3033-771c-4aa5-84b9-e3a3dc279f7b",
+        "formTitle": "WebSecScan Pro Input",
+        "formFields": {
+          "values": [
             {
-              "node": "Orchestrator Agent",
-              "type": "ai_languageModel",
-              "index": 0
+              "fieldLabel": "Target URL",
+              "requiredField": true
             }
           ]
-        ]
+        },
+        "options": {}
       },
-      "Start Audit Form": {
-        "main": [
-          [
-            {
-              "node": "Orchestrator Agent",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
+      "id": "form-trigger",
+      "name": "Start Audit Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 1,
+      "position": [
+        256,
+        304
+      ],
+      "webhookId": "13aa3033-771c-4aa5-84b9-e3a3dc279f7b"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "hnStxD29gy2uauhe",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/hnStxD29gy2uauhe",
+          "cachedResultName": "WebSec_SubAgent_Worker"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
       },
-      "Recon Agent": {
-        "ai_tool": [
-          [
-            {
-              "node": "Orchestrator Agent",
-              "type": "ai_tool",
-              "index": 0
-            }
-          ]
-        ]
+      "id": "tool-recon",
+      "name": "Recon Agent",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        864,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "hnStxD29gy2uauhe",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/hnStxD29gy2uauhe",
+          "cachedResultName": "WebSec_SubAgent_Worker"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
       },
-      "Transport Agent": {
-        "ai_tool": [
-          [
-            {
-              "node": "Orchestrator Agent",
-              "type": "ai_tool",
-              "index": 0
-            }
-          ]
-        ]
+      "id": "tool-transport",
+      "name": "Transport Agent",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        864,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "hnStxD29gy2uauhe",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/hnStxD29gy2uauhe",
+          "cachedResultName": "WebSec_SubAgent_Worker"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
       },
-      "Identity Agent": {
-        "ai_tool": [
-          [
-            {
-              "node": "Orchestrator Agent",
-              "type": "ai_tool",
-              "index": 0
-            }
-          ]
-        ]
+      "id": "tool-identity",
+      "name": "Identity Agent",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        864,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "hnStxD29gy2uauhe",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/hnStxD29gy2uauhe",
+          "cachedResultName": "WebSec_SubAgent_Worker"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
       },
-      "Correlation Agent": {
-        "ai_tool": [
-          [
-            {
-              "node": "Orchestrator Agent",
-              "type": "ai_tool",
-              "index": 0
-            }
-          ]
-        ]
+      "id": "tool-correlation",
+      "name": "Correlation Agent",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        864,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const report = $input.item.json.output;\nconst binaryData = Buffer.from(report).toString('base64');\nreturn {\n  json: { message: \"Report generated successfully.\" },\n  binary: {\n    data: {\n      data: binaryData,\n      mimeType: 'text/markdown',\n      fileName: 'WebSecScan_Report.md'\n    }\n  }\n};"
       },
-      "Orchestrator Agent": {
-        "main": [
-          [
-            {
-              "node": "Create Report File",
-              "type": "main",
-              "index": 0
-            }
+      "id": "create-file",
+      "name": "Create Report File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=🚫 **รายงานผลการตรวจความปลอดภัย WebSecScan Pro** 🚫\n(ดูรายละเอียดในไฟล์แนบ)",
+        "options": {},
+        "files": {
+          "values": [
+            {}
           ]
-        ]
+        }
       },
-      "Create Report File": {
-        "main": [
-          [
-            {
-              "node": "Send Report to Discord",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
+      "id": "discord-report",
+      "name": "Send Report to Discord",
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        400
+      ],
+      "webhookId": "74ba7a8b-6b96-40a6-bb84-5561caeaa1e3",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "THnybLg0kTchFk3v",
+          "name": "Discord Webhook account"
+        }
       }
+    }
+  ],
+  "connections": {
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     },
-    "settings": {
-      "executionOrder": "v1",
-      "saveDataErrorExecution": "all",
-      "saveDataSuccessExecution": "all",
-      "saveManualExecutions": true,
-      "saveExecutionProgress": true,
-      "callerPolicy": "workflowsFromSameOwner",
-      "availableInMCP": false
+    "Start Audit Form": {
+      "main": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
-    "staticData": null,
-    "meta": {
-      "templateCredsSetupCompleted": true
+    "Recon Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     },
-    "pinData": {},
-    "versionId": "cc95473c-ea92-48d4-bb60-9db6fd6eac43",
-    "activeVersionId": null,
-    "versionCounter": 55,
-    "triggerCount": 0,
-    "tags": [],
-    "activeVersion": null
-  }
+    "Transport Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Identity Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Correlation Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "Orchestrator Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Orchestrator Agent": {
+      "main": [
+        [
+          {
+            "node": "Create Report File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Report File": {
+      "main": [
+        [
+          {
+            "node": "Send Report to Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "pinData": {}
 }
